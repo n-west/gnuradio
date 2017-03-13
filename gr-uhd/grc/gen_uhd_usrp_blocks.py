@@ -64,6 +64,9 @@ self.\$(id).set_subdev_spec(\$sd_spec$(m), $m)
 self.\$(id).set_samp_rate(\$samp_rate)
 \#if \$sync() == 'sync'
 self.\$(id).set_time_unknown_pps(uhd.time_spec())
+\#elif \$sync() == 'gpsdo'
+next_pps_time = self.\$(id).get_time_last_pps().get_real_secs() + 1.0
+self.\$(id).set_time_next_pps(uhd.time_spec(next_pps_time))
 \#elif \$sync() == 'pc_clock'
 self.\$(id).set_time_now(uhd.time_spec(time.time()), uhd.ALL_MBOARDS)
 \#end if
@@ -232,6 +235,10 @@ set_lo_export_enabled(\$lo_export$(n), uhd.ALL_LOS, $n)
 		<option>
 			<name>unknown PPS</name>
 			<key>sync</key>
+		</option>
+		<option>
+			<name>GPSDO PPS</name>
+			<key>gpsdo</key>
 		</option>
 		<option>
 			<name>PC Clock</name>
