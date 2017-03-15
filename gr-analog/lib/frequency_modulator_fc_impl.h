@@ -33,13 +33,17 @@ namespace gr {
     private:
       float d_sensitivity;
       float d_phase;
+        int implementation_type;
 
     public:
-      frequency_modulator_fc_impl(float sensitivity);
+      frequency_modulator_fc_impl(float sensitivity, int implementation_type);
       ~frequency_modulator_fc_impl();
 
       void set_sensitivity(float sens) { d_sensitivity = sens; }
       float sensitivity() const { return d_sensitivity; }
+
+      void fxpt_modulate(gr_complex* out, const float* in, int nitems);
+      void exp_modulate(gr_complex* out, const float* in, int nitems);
 
       void setup_rpc();
 

@@ -23,6 +23,7 @@
 import math
 
 from gnuradio import gr, gr_unittest, analog, blocks
+import time
 
 def sincos(x):
     return  math.cos(x) + math.sin(x) * 1j
@@ -42,14 +43,37 @@ class test_frequency_modulator(gr_unittest.TestCase):
         src_data = (1.0/4, 1.0/2, 1.0/4, -1.0/4, -1.0/2, -1/4.0)
         running_sum = (pi/16, 3*pi/16, pi/4, 3*pi/16, pi/16, 0)
         expected_result = tuple([sincos(x) for x in running_sum])
-        src = blocks.vector_source_f(src_data)
-        op = analog.frequency_modulator_fc(sensitivity)
+        src = blocks.vector_source_f(src_data * 4096 * 4096)
+        op = analog.frequency_modulator_fc(sensitivity, 0)
         dst = blocks.vector_sink_c()
         self.tb.connect(src, op)
         self.tb.connect(op, dst)
+        start = time.time()
         self.tb.run()
+        finish = time.time()
         result_data = dst.data()
-        self.assertComplexTuplesAlmostEqual(expected_result, result_data, 5)
+        print "time in work (%i): %1.3f" % (0, finish-start)
+        # self.assertComplexTuplesAlmostEqual(expected_result * 4096 * 300, result_data, 5)
+
+    def test_fm_002(self):
+        pi = math.pi
+        sensitivity = pi/4
+        src_data = (1.0/4, 1.0/2, 1.0/4, -1.0/4, -1.0/2, -1/4.0)
+        running_sum = (pi/16, 3*pi/16, pi/4, 3*pi/16, pi/16, 0)
+        expected_result = tuple([sincos(x) for x in running_sum])
+        src = blocks.vector_source_f(src_data * 4096 * 4096)
+        op = analog.frequency_modulator_fc(sensitivity, 1)
+        dst = blocks.vector_sink_c()
+        self.tb.connect(src, op)
+        self.tb.connect(op, dst)
+        start = time.time()
+        self.tb.run()
+        finish = time.time()
+        result_data = dst.data()
+        print "time in work (%i): %1.3f" % (1, finish-start)
+        # self.assertComplexTuplesAlmostEqual(expected_result * 4096 * 300, result_data, 5)
+
+
 
 if __name__ == '__main__':
     gr_unittest.run(test_frequency_modulator, "test_frequency_modulator.xml")

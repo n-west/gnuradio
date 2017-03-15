@@ -70,7 +70,7 @@ namespace gr {
        *
        * \param sensitivity radians/sample = amplitude * sensitivity
        */
-      static sptr make(float sensitivity);
+      static sptr make(float sensitivity, int implementation_type=1);
 
       virtual void set_sensitivity(float sens) = 0;
       virtual float sensitivity() const = 0;
