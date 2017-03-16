@@ -55,22 +55,6 @@ ADD_FILE_DEPENDENCIES(
 ########################################################################
 # Generate other pmt stuff
 ########################################################################
-add_custom_command(
-    OUTPUT
-        ${CMAKE_CURRENT_BINARY_DIR}/pmt_unv_int.h
-        ${CMAKE_CURRENT_BINARY_DIR}/qa_pmt_unv.h
-        ${CMAKE_CURRENT_BINARY_DIR}/pmt_unv.cc
-        ${CMAKE_CURRENT_BINARY_DIR}/qa_pmt_unv.cc
-    DEPENDS
-        ${CMAKE_CURRENT_SOURCE_DIR}/generate_unv.py
-        ${CMAKE_CURRENT_SOURCE_DIR}/unv_template.h.t
-        ${CMAKE_CURRENT_SOURCE_DIR}/unv_template.cc.t
-        ${CMAKE_CURRENT_SOURCE_DIR}/unv_qa_template.cc.t
-    COMMAND ${PYTHON_EXECUTABLE} ${PYTHON_DASH_B} -c
-    "import os, sys; srcdir='${CMAKE_CURRENT_SOURCE_DIR}'; sys.path.append(srcdir); os.environ['srcdir']=srcdir; from generate_unv import main; main()"
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    VERBATIM
-)
 
 set(pmt_sources
   ${CMAKE_CURRENT_BINARY_DIR}/pmt_unv.cc
@@ -140,7 +124,7 @@ include(GrTest)
 list(APPEND test_gnuradio_pmt_sources
   qa_pmt.cc
   qa_pmt_prims.cc
-  ${CMAKE_CURRENT_BINARY_DIR}/qa_pmt_unv.cc
+  qa_pmt_unv.cc
 )
 
 include_directories(${CPPUNIT_INCLUDE_DIRS})
