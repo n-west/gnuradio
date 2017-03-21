@@ -313,7 +313,7 @@ serialize(pmt_t obj, std::streambuf &sb)
   }
 
   if(is_vector(obj)) {
-    size_t vec_len = pmt::length(obj);
+    size_t vec_len = length(obj);
     ok = serialize_untagged_u8(PST_VECTOR, sb);
     ok &= serialize_untagged_u32(vec_len, sb);
     for(size_t i=0; i<vec_len; i++) {
@@ -324,7 +324,7 @@ serialize(pmt_t obj, std::streambuf &sb)
 
   if(is_uniform_vector(obj)) {
     size_t npad = 1;
-    size_t vec_len = pmt::length(obj);
+    size_t vec_len = length(obj);
 
     if(is_u8vector(obj)) {
       ok = serialize_untagged_u8(PST_UNIFORM_VECTOR, sb);
@@ -503,7 +503,7 @@ serialize(pmt_t obj, std::streambuf &sb)
     throw notimplemented("pmt::serialize (dict)", obj);
 
   if (is_tuple(obj)){
-    size_t tuple_len = pmt::length(obj);
+    size_t tuple_len = length(obj);
     ok = serialize_untagged_u8(PST_TUPLE, sb);
     ok &= serialize_untagged_u32(tuple_len, sb);
     for(size_t i=0; i<tuple_len; i++){

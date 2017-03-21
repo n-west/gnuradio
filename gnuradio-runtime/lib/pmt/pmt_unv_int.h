@@ -59,6 +59,49 @@ namespace pmt {
     virtual const std::string string_ref(size_t k) const;
   };
 
+  // Specializations to provide is_TYPEvector()
+
+  template <> class pmt_unv_vector<int8_t> {
+    bool is_s8vector() { return true; }
+  };
+
+  template <> class pmt_unv_vector<uint8_t> {
+    bool is_u8vector() { return true; }
+  };
+
+  template <> class pmt_unv_vector<int16_t> {
+    bool is_s16vector() { return true; }
+  };
+
+  template <> class pmt_unv_vector<uint16_t> {
+    bool is_u16vector() { return true; }
+  };
+
+  template <> class pmt_unv_vector<int32_t> {
+    bool is_s32vector() { return true; }
+  };
+
+  template <> class pmt_unv_vector<uint32_t> {
+    bool is_u32vector() { return true; }
+  };
+
+  template <> class pmt_unv_vector<float> {
+    bool is_f32vector() { return true; }
+  };
+
+  template <> class pmt_unv_vector<double> {
+    bool is_f64vector() { return true; }
+  };
+
+  template <> class pmt_unv_vector< std::complex<float> > {
+    bool is_c32vector() { return true; }
+  };
+
+  template <> class pmt_unv_vector< std::complex<double> > {
+    bool is_c64vector() { return true; }
+  };
+
+
   typedef pmt_unv_vector<uint8_t> pmt_u8vector;
   typedef pmt_unv_vector<int8_t> pmt_s8vector;
   typedef pmt_unv_vector<uint16_t> pmt_u16vector;

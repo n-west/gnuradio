@@ -57,7 +57,7 @@ ADD_FILE_DEPENDENCIES(
 ########################################################################
 
 set(pmt_sources
-  ${CMAKE_CURRENT_BINARY_DIR}/pmt_unv.cc
+  ${CMAKE_CURRENT_SOURCE_DIR}/pmt_unv.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/pmt.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/pmt_io.cc
   ${CMAKE_CURRENT_SOURCE_DIR}/pmt_pool.cc
@@ -68,10 +68,6 @@ list(APPEND gnuradio_pmt_libs
     ${Boost_LIBRARIES}
     ${LOG4CPP_LIBRARIES}
 )
-
-add_custom_target(pmt_generated
-  DEPENDS ${PMT_SERIAL_TAGS_H} ${CMAKE_CURRENT_BINARY_DIR}/pmt_unv_int.h)
-
 
 #Add Windows DLL resource file if using MSVC
 if(MSVC)

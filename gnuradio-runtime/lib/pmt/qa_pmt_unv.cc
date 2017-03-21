@@ -45,6 +45,9 @@ qa_pmt_unv::test_u8vector()
   CPPUNIT_ASSERT_EQUAL(s1, pmt::u8vector_ref(v1, 1));
   CPPUNIT_ASSERT_EQUAL(s2, pmt::u8vector_ref(v1, 2));
 
+  CPPUNIT_ASSERT_EQUAL(pmt::is_u8vector(v1), true);
+  CPPUNIT_ASSERT_EQUAL(pmt::is_s8vector(v1), true);
+
   CPPUNIT_ASSERT_THROW(pmt::u8vector_ref(v1, N), pmt::out_of_range);
   CPPUNIT_ASSERT_THROW(pmt::u8vector_set(v1, N, uint8_t(0)), pmt::out_of_range);
 
